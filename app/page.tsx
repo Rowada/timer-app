@@ -1,3 +1,6 @@
+"use client";
+
+import { AddTimerForm } from "@/components/timer/AddTimerForm";
 import Image from "next/image";
 
 export default function Home() {
@@ -9,6 +12,8 @@ export default function Home() {
           Time<span className="font-semibold text-primary">Master</span>
         </h1>
       </nav>
+
+      <AddTimerForm />
     </main>
   );
 }
