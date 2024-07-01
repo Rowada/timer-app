@@ -7,47 +7,46 @@ export const AddTimerForm: React.FC = () => {
   const [time, setTime] = useState({ hours: 0, minutes: 1, seconds: 0 });
   const addTimer = useTimerStore((state) => state.addTimer);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log(name, value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTime((prevTime) => ({
+      ...prevTime,
+      [name]: Number(value),
+    }));
+  };
 
-  //   setTime((curr) => ({
-  //     ...curr,
-  //   }));
-  // };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    unit: "hours" | "minutes" | "seconds"
-  ) => {
-    const value = Number(e.target.value);
-    console.log(value);
-
-    setTime((prevTime) => ({ ...prevTime, [unit]: value }));
+  const handleSubmit = () => {
+    addTimer(time.hours, time.minutes, time.seconds);
+    // setTime({ hours: 0, minutes: 1, seconds: 0 });
   };
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-center gap-2">
         <Input
+          type="text"
           value={String(time.hours).padStart(2, "0")}
-          onChange={handleChange}
           name="hrs"
+          onChange={handleChange}
         />
         <p className="text-lg">:</p>
         <Input
+          type="text"
           value={String(time.minutes).padStart(2, "0")}
-          onChange={handleChange}
           name="mins"
+          onChange={handleChange}
         />
         <p className="text-lg">:</p>
         <Input
+          type="text"
           value={String(time.seconds).padStart(2, "0")}
-          onChange={handleChange}
           name="secs"
+          onChange={handleChange}
         />
       </div>
-      <Button className="btn-success btn">Add Timer</Button>
+      <Button onClick={handleSubmit} className="btn-success btn">
+        Add Timer
+      </Button>
     </div>
   );
 };

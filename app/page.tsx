@@ -1,6 +1,7 @@
 "use client";
 
 import { AddTimerForm } from "@/components/timer/AddTimerForm";
+import { TimerList } from "@/components/timer/TimerList";
 import Image from "next/image";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       </nav>
 
       <AddTimerForm />
+      <TimerList />
     </main>
   );
 }
