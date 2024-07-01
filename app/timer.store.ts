@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 type Timer = {
   id: string;
@@ -11,8 +11,7 @@ type Timer = {
 type TimerState = {
   timers: Timer[];
   addTimer: (hours: number, minutes: number, seconds: number) => void;
-  startTimer: (id: string) => void;
-  pauseTimer: (id: string) => void;
+  toggleTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
 };
 
@@ -25,18 +24,13 @@ export const useTimerStore = create<TimerState>((set) => ({
         { id: Date.now().toString(), hours, minutes, seconds, isRunning: true },
       ],
     })),
-  startTimer: (id) =>
+  toggleTimer: (id) =>
     set((state) => ({
       timers: state.timers.map((timer) =>
-        timer.id === id ? { ...timer, isRunning: true } : timer
+        timer.id === id ? { ...timer, isRunning: !timer.isRunning } : timer
       ),
     })),
-  pauseTimer: (id) =>
-    set((state) => ({
-      timers: state.timers.map((timer) =>
-        timer.id === id ? { ...timer, isRunning: false } : timer
-      ),
-    })),
+
   deleteTimer: (id) =>
     set((state) => ({
       timers: state.timers.filter((timer) => timer.id !== id),
