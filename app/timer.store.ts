@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
 
-type Timer = {
+export type Timer = {
   id: string;
   duration: number;
   timeLeft: number;
