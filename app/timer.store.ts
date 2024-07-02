@@ -1,38 +1,72 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { nanoid } from "nanoid";
 
 type Timer = {
   id: string;
-  hours: number;
-  minutes: number;
-  seconds: number;
+  duration: number;
+  timeLeft: number;
+  endAt: number;
   isRunning: boolean;
 };
 
 type TimerState = {
   timers: Timer[];
-  addTimer: (hours: number, minutes: number, seconds: number) => void;
+  addTimer: (duration: number) => void;
   toggleTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
 };
 
-export const useTimerStore = create<TimerState>((set) => ({
-  timers: [],
-  addTimer: (hours, minutes, seconds) =>
-    set((state) => ({
-      timers: [
-        ...state.timers,
-        { id: Date.now().toString(), hours, minutes, seconds, isRunning: true },
-      ],
-    })),
-  toggleTimer: (id) =>
-    set((state) => ({
-      timers: state.timers.map((timer) =>
-        timer.id === id ? { ...timer, isRunning: !timer.isRunning } : timer
-      ),
-    })),
+export const useTimerStore = create<TimerState>()(
+  persist(
+    (set) => ({
+      timers: [],
+      addTimer: (duration) => {
+        set((cur) => ({
+          timers: [
+            ...cur.timers,
+            {
+              id: nanoid(10).toString(),
+              duration,
+              timeLeft: duration,
+              endAt: Date.now() + duration,
+              isRunning: true,
+            },
+          ],
+        }));
+      },
 
-  deleteTimer: (id) =>
-    set((state) => ({
-      timers: state.timers.filter((timer) => timer.id !== id),
-    })),
-}));
+      deleteTimer: (id) => {
+        set((cur) => ({
+          timers: cur.timers.filter((t) => t.id !== id),
+        }));
+      },
+
+      toggleTimer(id) {
+        set((cur) => ({
+          timers: cur.timers.map((timer) => {
+            if (timer.id !== id) return timer;
+
+            if (timer.timeLeft === 0 && !timer.isRunning) {
+              return {
+                ...timer,
+                isRunning: true,
+                endAt: Date.now() + timer.duration,
+                timeLeft: timer.duration,
+              };
+            }
+
+            return {
+              ...timer,
+              isRunning: !timer.isRunning,
+              emAt: timer.isRunning ? timer.endAt : Date.now() + timer.timeLeft,
+            };
+          }),
+        }));
+      },
+    }),
+    {
+      name: "storage-timer",
+    }
+  )
+);
