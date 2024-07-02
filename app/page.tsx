@@ -2,9 +2,11 @@
 
 import { AddTimerForm } from "@/components/timer/AddTimerForm";
 import { TimerList } from "@/components/timer/TimerList";
+import { useInterval } from "@/hooks/useInterval";
 import Image from "next/image";
 
 export default function Home() {
+  useInterval();
   return (
     <main className="mx-auto flex min-h-full max-w-4xl flex-col gap-8 p-4">
       <nav className="flex items-center justify-start">

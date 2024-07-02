@@ -4,20 +4,25 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 export const AddTimerForm: React.FC = () => {
-  const [time, setTime] = useState({ hours: 0, minutes: 1, seconds: 0 });
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const addTimer = useTimerStore((state) => state.addTimer);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setTime((prevTime) => ({
-      ...prevTime,
-      [name]: Number(value),
-    }));
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setTime((prevTime) => ({
+  //     ...prevTime,
+  //     [name]: Number(value),
+  //   }));
+  // };
 
   const handleSubmit = () => {
-    addTimer(time.hours, time.minutes, time.seconds);
-    // setTime({ hours: 0, minutes: 1, seconds: 0 });
+    const duration = (hours * 3600 + minutes * 60 + seconds) * 1000;
+    addTimer(duration);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
   };
 
   return (
@@ -25,23 +30,23 @@ export const AddTimerForm: React.FC = () => {
       <div className="flex items-center justify-center gap-2">
         <Input
           type="text"
-          value={String(time.hours).padStart(2, "0")}
+          value={String(hours).padStart(2, "0")}
           name="hrs"
-          onChange={handleChange}
+          onChange={(e) => setHours(Number(e.target.value))}
         />
         <p className="text-lg">:</p>
         <Input
           type="text"
-          value={String(time.minutes).padStart(2, "0")}
+          value={String(minutes).padStart(2, "0")}
           name="mins"
-          onChange={handleChange}
+          onChange={(e) => setMinutes(Number(e.target.value))}
         />
         <p className="text-lg">:</p>
         <Input
           type="text"
-          value={String(time.seconds).padStart(2, "0")}
+          value={String(seconds).padStart(2, "0")}
           name="secs"
-          onChange={handleChange}
+          onChange={(e) => setSeconds(Number(e.target.value))}
         />
       </div>
       <Button onClick={handleSubmit} className="btn-success btn">
