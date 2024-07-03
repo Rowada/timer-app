@@ -29,15 +29,16 @@ export const AddTimerForm: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className=" flex flex-col gap-4">
+      {" "}
+      <div className="flex items-center justify-between">
+        {["hrs", "mins", "secs"].map((label) => (
+          <p className="text-center font-bold w-full" key={label}>
+            {label}
+          </p>
+        ))}
+      </div>
       <div className="flex items-center justify-center gap-2">
-        <div className="flex items-center justify-between">
-          {["hrs", "mins", "secs"].map((label) => (
-            <p className="text-center font-bold w-full" key={label}>
-              {label}
-            </p>
-          ))}
-        </div>
         <Input
           type="text"
           value={String(time.hrs).padStart(2, "0")}
@@ -59,7 +60,7 @@ export const AddTimerForm: React.FC = () => {
           onChange={handleChange}
         />
       </div>
-      <div className="flex items-end">
+      <div className="flex items-end justify-end">
         <Button onClick={handleSubmit} className="btn-success btn">
           Add Timer
         </Button>
