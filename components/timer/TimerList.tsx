@@ -6,7 +6,7 @@ export const TimerList = () => {
   const timers = useTimerStore((state) => state.timers);
 
   return (
-    <div>
+    <div className="flex justify-center flex-wrap gap-4">
       {timers.map((timer) => (
         <Timer key={timer.id} timer={timer} />
       ))}
