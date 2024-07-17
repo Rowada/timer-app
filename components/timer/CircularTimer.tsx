@@ -25,7 +25,7 @@ export const CircularTimer: React.FC<CircularTimerProps> = ({
       className={className}
     >
       <circle
-        className="text-neutral-content"
+        className="text-accent"
         stroke="currentColor"
         strokeWidth="4"
         fill="transparent"

@@ -34,11 +34,13 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
               width={180}
               radiusRatio={0.9}
             />
+
+            <div className="text-2xl font-bold">
+              {formatTime(timer.timeLeft)}
+            </div>
           </div>
         </div>
         <div className="flex items-center flex-col justify-center gap-2">
-          {/* <div>{new Date(timer.timeLeft).toISOString().substr(11, 8)}</div> */}
-          <div>{formatTime(timer.timeLeft)}</div>
           <div className="flex items-center gap-2">
             <Button
               onClick={() => toggleTimer(timer.id)}
@@ -54,7 +56,7 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
               onClick={() => deleteTimer(timer.id)}
               className="btn btn-danger rounded-full size-12 p-0"
             >
-              <Trash2 fill="currentColor" size={14} />
+              <Trash2 color="currentColor" size={14} />
             </Button>
           </div>
         </div>
