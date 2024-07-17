@@ -5,6 +5,7 @@ import { Card } from "../ui/card";
 import { Play, Pause, Trash2, Repeat } from "lucide-react";
 import clsx from "clsx";
 import { CircularTimer } from "./CircularTimer";
+import { formatTime } from "@/utils/formatTime";
 
 type TimerProps = {
   timer: TimerType;
@@ -36,7 +37,8 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
           </div>
         </div>
         <div className="flex items-center flex-col justify-center gap-2">
-          <div>{new Date(timer.timeLeft).toISOString().substr(11, 8)}</div>
+          {/* <div>{new Date(timer.timeLeft).toISOString().substr(11, 8)}</div> */}
+          <div>{formatTime(timer.timeLeft)}</div>
           <div className="flex items-center gap-2">
             <Button
               onClick={() => toggleTimer(timer.id)}
