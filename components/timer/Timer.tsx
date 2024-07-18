@@ -6,6 +6,7 @@ import { Play, Pause, Trash2, Repeat } from "lucide-react";
 import clsx from "clsx";
 import { CircularTimer } from "./CircularTimer";
 import { formatTime } from "@/utils/formatTime";
+import formatDuration from "@/utils/formatDuration";
 
 type TimerProps = {
   timer: TimerType;
@@ -20,18 +21,18 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
       <CardTitle className="text-center">NewTimer</CardTitle>
       <div
         className={clsx(
-          "relative flex size-[224px] flex-col gap-2 rounded-2xl bg-base-200 p-4",
+          "relative flex size-[250px] flex-col gap-2 rounded-2xl bg-base-200 p-4 ",
           {
             "brightness-75": timer.timeLeft === 0,
           }
         )}
       >
-        <div className="relative flex size-full flex-col items-center justify-center gap-1">
+        <div className="relative flex size-full flex-col items-center justify-center  gap-1">
           <CircularTimer
-            className="absolute"
+            className="absolute "
             timeLeft={timer.timeLeft}
             duration={timer.duration}
-            width={180}
+            width={200}
             radiusRatio={0.9}
           />
 
@@ -62,12 +63,30 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
             <Trash2 fill="primary" size={20} />
           </Button>
         </div>
-        <div className="flex items-center justify-center gap-2 text-sm text-primary p-3">
-          <span className="rounded-full bg-accent py-1 px-2">00 hours</span>
-          <span className="rounded-full bg-accent py-1 px-2">02 mins</span>
-          <span className="rounded-full bg-accent py-1 px-2">00 secs</span>
+        <div className="flex items-center justify-center gap-2 text-sm  p-3">
+          <DurationDisplay duration={timer.duration} />
         </div>
       </div>
     </Card>
+  );
+};
+
+const DurationDisplay = ({ duration }) => {
+  const text = formatDuration(duration);
+  return (
+    <>
+      <p className="rounded-full bg-accent py-1 px-2">
+        {text.hrs}
+        <span className="ml-1 text-primary">hours</span>
+      </p>
+      <p className="rounded-full bg-accent py-1 px-2">
+        {text.mins}
+        <span className="ml-1 text-primary">mins</span>
+      </p>
+      <p className="rounded-full bg-accent py-1 px-2">
+        {text.secs}
+        <span className="ml-1 text-primary">secs</span>
+      </p>
+    </>
   );
 };

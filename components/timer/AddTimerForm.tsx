@@ -1,4 +1,4 @@
-import { formatTimeValue } from "@/components/timer/formatTimeValue";
+import { formatTimeValue } from "@/utils/formatTimeValue";
 import React, { useState } from "react";
 import { useTimerStore } from "../../app/timer.store";
 import { Button } from "../ui/button";
