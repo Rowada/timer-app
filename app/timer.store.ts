@@ -59,7 +59,9 @@ export const useTimerStore = create<TimerState>()(
             return {
               ...timer,
               isRunning: !timer.isRunning,
-              emAt: timer.isRunning ? timer.endAt : Date.now() + timer.timeLeft,
+              endAt: timer.isRunning
+                ? timer.endAt
+                : Date.now() + timer.timeLeft,
             };
           }),
         }));
