@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Timer as TimerType, useTimerStore } from "../../app/timer.store";
 import { Button } from "../ui/button";
 import { Card, CardTitle } from "../ui/card";
@@ -40,7 +39,7 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
         </div>
       </div>
       <div className="flex items-center flex-col justify-center gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex justify-center space-x-5 mb-5">
           <Button
             onClick={() => toggleTimer(timer.id)}
             className="btn rounded-full size-12 p-0"
@@ -52,7 +51,7 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
             )}
           </Button>
 
-          <Button className="btn btn-danger rounded-full  size-12 p-0">
+          <Button className="btn btn-danger rounded-full mt-10 size-12 p-0">
             <Repeat fill="currentColor" size={20} />
           </Button>
 
