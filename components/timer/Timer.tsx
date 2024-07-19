@@ -14,6 +14,7 @@ type TimerProps = {
 export const Timer: React.FC<TimerProps> = ({ timer }) => {
   const deleteTimer = useTimerStore((state) => state.deleteTimer);
   const toggleTimer = useTimerStore((state) => state.toggleTimer);
+  const repeatTimer = useTimerStore((state) => state.repeatTimer);
 
   return (
     <Card className="p-3">
@@ -51,7 +52,10 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
             )}
           </Button>
 
-          <Button className="btn btn-danger rounded-full mt-10 size-12 p-0">
+          <Button
+            onClick={() => repeatTimer(timer.id)}
+            className="btn btn-danger rounded-full mt-10 size-12 p-0"
+          >
             <Repeat fill="currentColor" size={20} />
           </Button>
 

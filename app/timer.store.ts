@@ -13,6 +13,7 @@ export type Timer = {
 type TimerState = {
   timers: Timer[];
   addTimer: (duration: number) => void;
+  repeatTimer: (id: string) => void;
   toggleTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
 };
@@ -33,6 +34,21 @@ export const useTimerStore = create<TimerState>()(
               isRunning: true,
             },
           ],
+        }));
+      },
+
+      repeatTimer: (id: string) => {
+        set((cur) => ({
+          timers: cur.timers.map((timer) => {
+            if (timer.id !== id) return timer;
+
+            return {
+              ...timer,
+              isRunning: true,
+              timeLeft: timer.duration,
+              endAt: Date.now() + timer.duration,
+            };
+          }),
         }));
       },
 
