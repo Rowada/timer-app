@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 
 export type Timer = {
   id: string;
+  timerName: string;
   duration: number;
   timeLeft: number;
   endAt: number;
@@ -16,6 +17,7 @@ type TimerState = {
   repeatTimer: (id: string) => void;
   toggleTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
+  updadteTimerName: (id: string, timerName: string) => void;
 };
 
 export const useTimerStore = create<TimerState>()(
@@ -28,12 +30,28 @@ export const useTimerStore = create<TimerState>()(
             ...cur.timers,
             {
               id: nanoid(10).toString(),
+              timerName: "new-timer",
               duration,
               timeLeft: duration,
               endAt: Date.now() + duration,
               isRunning: true,
             },
           ],
+        }));
+      },
+
+      // crée une methode qui permet de modifier le nom du timer
+
+      updadteTimerName: (id: string, timerName: string) => {
+        set((cur) => ({
+          timers: cur.timers.map((timer) => {
+            if (timer.id !== id) return timer;
+
+            return {
+              ...timer,
+              timerName,
+            };
+          }),
         }));
       },
 

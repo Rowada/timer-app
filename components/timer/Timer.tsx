@@ -1,11 +1,13 @@
+import formatDuration from "@/utils/formatDuration";
+import { formatTime } from "@/utils/formatTime";
+import clsx from "clsx";
+import { Pause, Play, Repeat, Trash2 } from "lucide-react";
 import { Timer as TimerType, useTimerStore } from "../../app/timer.store";
 import { Button } from "../ui/button";
 import { Card, CardTitle } from "../ui/card";
-import { Play, Pause, Trash2, Repeat } from "lucide-react";
-import clsx from "clsx";
 import { CircularTimer } from "./CircularTimer";
-import { formatTime } from "@/utils/formatTime";
-import formatDuration from "@/utils/formatDuration";
+import { useState } from "react";
+import { Input } from "../ui/input";
 
 type TimerProps = {
   timer: TimerType;
@@ -15,10 +17,30 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
   const deleteTimer = useTimerStore((state) => state.deleteTimer);
   const toggleTimer = useTimerStore((state) => state.toggleTimer);
   const repeatTimer = useTimerStore((state) => state.repeatTimer);
+  const updateTimerName = useTimerStore((state) => state.updadteTimerName);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState(timer.timerName);
+
+  const handleNameChange = () => {
+    updateTimerName(timer.id, newName);
+    setIsEditing(false);
+  };
 
   return (
     <Card className="p-3">
-      <CardTitle className="text-center">NewTimer</CardTitle>
+      <CardTitle className="text-center">
+        {isEditing ? (
+          <Input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            onBlur={handleNameChange}
+          />
+        ) : (
+          <span onClick={() => setIsEditing(true)}>{timer.timerName}</span>
+        )}
+      </CardTitle>
       <div
         className={clsx(
           "relative flex size-[250px] flex-col gap-2 rounded-2xl bg-base-200 p-4 ",
