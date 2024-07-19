@@ -11,10 +11,8 @@ export const useInterval = () => {
           }
 
           const timerFinish = () => {
-            // const audio = new Audio("/ring.mp3");
-            const audio = console.log("Test audio");
-
-            // audio.play();
+            const audio = new Audio("/ring.mp3");
+            audio.play();
             return {
               ...timer,
               timeLeft: 0,
