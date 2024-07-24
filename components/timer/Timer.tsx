@@ -1,7 +1,7 @@
 import formatDuration from "@/utils/formatDuration";
 import { formatTime } from "@/utils/formatTime";
 import clsx from "clsx";
-import { Pause, Play, Repeat, Trash2 } from "lucide-react";
+import { GripVertical, Pause, Play, Repeat, Trash2 } from "lucide-react";
 import { Timer as TimerType, useTimerStore } from "../../app/timer.store";
 import { Button } from "../ui/button";
 import { Card, CardTitle } from "../ui/card";
@@ -34,16 +34,16 @@ export const Timer: React.FC<TimerProps> = ({
   };
 
   return (
-    <Card className="p-3 relative">
-      {/* Drag handle button */}
+    <Card className="p-3 relative h-[478px]">
       <Button
+        variant={"outline"}
         {...dragHandleListeners}
         {...dragHandleAttributes}
-        className="btn btn-primary size-12 p-0 absolute top-0 right-0"
+        className="size-10 p-0 absolute top-3 right-3"
       >
-        ☰
+        <GripVertical />
       </Button>
-      <CardTitle className="text-center">
+      <CardTitle className="flex items-center justify-center h-10">
         {isEditing ? (
           <Input
             type="text"
@@ -102,7 +102,7 @@ export const Timer: React.FC<TimerProps> = ({
             <Trash2 fill="primary" size={20} />
           </Button>
         </div>
-        <div className="flex items-center justify-center gap-2 text-sm  p-3">
+        <div className="flex items-center justify-center gap-2 text-sm">
           <DurationDisplay duration={timer.duration} />
         </div>
       </div>
