@@ -18,6 +18,7 @@ type TimerState = {
   toggleTimer: (id: string) => void;
   deleteTimer: (id: string) => void;
   updadteTimerName: (id: string, timerName: string) => void;
+  updateTimersOrder: (newOrder: Timer[]) => void;
 };
 
 export const useTimerStore = create<TimerState>()(
@@ -96,6 +97,12 @@ export const useTimerStore = create<TimerState>()(
                 : Date.now() + timer.timeLeft,
             };
           }),
+        }));
+      },
+
+      updateTimersOrder: (newOrder) => {
+        set(() => ({
+          timers: newOrder,
         }));
       },
     }),
