@@ -11,9 +11,15 @@ import { Input } from "../ui/input";
 
 type TimerProps = {
   timer: TimerType;
+  dragHandleListeners: any;
+  dragHandleAttributes: any;
 };
 
-export const Timer: React.FC<TimerProps> = ({ timer }) => {
+export const Timer: React.FC<TimerProps> = ({
+  timer,
+  dragHandleListeners,
+  dragHandleAttributes,
+}) => {
   const deleteTimer = useTimerStore((state) => state.deleteTimer);
   const toggleTimer = useTimerStore((state) => state.toggleTimer);
   const repeatTimer = useTimerStore((state) => state.repeatTimer);
@@ -28,7 +34,15 @@ export const Timer: React.FC<TimerProps> = ({ timer }) => {
   };
 
   return (
-    <Card className="p-3">
+    <Card className="p-3 relative">
+      {/* Drag handle button */}
+      <Button
+        {...dragHandleListeners}
+        {...dragHandleAttributes}
+        className="btn btn-primary size-12 p-0 absolute top-0 right-0"
+      >
+        ☰
+      </Button>
       <CardTitle className="text-center">
         {isEditing ? (
           <Input
