@@ -40,8 +40,6 @@ export const useTimerStore = create<TimerState>()(
         }));
       },
 
-      // crée une methode qui permet de modifier le nom du timer
-
       updadteTimerName: (id: string, timerName: string) => {
         set((cur) => ({
           timers: cur.timers.map((timer) => {
