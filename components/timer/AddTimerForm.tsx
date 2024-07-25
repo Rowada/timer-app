@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 export const AddTimerForm: React.FC = () => {
-  const [time, setTime] = useState({ hrs: 0, mins: 0, secs: 0 });
+  const [time, setTime] = useState({ hrs: 0, mins: 1, secs: 0 });
   const addTimer = useTimerStore((state) => state.addTimer);
 
   const handleChange = (e) => {
@@ -25,7 +25,7 @@ export const AddTimerForm: React.FC = () => {
     }
 
     addTimer(ms);
-    setTime({ hrs: 0, mins: 0, secs: 0 });
+    setTime({ hrs: 0, mins: 1, secs: 0 });
   };
 
   return (
